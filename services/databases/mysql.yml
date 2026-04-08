@@ -1,0 +1,18 @@
+mysql:
+  image: mysql:8.0
+  container_name: mysql
+  restart: unless-stopped
+  ports:
+    - "3306:3306"
+  environment:
+    - MYSQL_ROOT_PASSWORD=CHANGEME
+    - MYSQL_DATABASE=app
+    - MYSQL_USER=app
+    - MYSQL_PASSWORD=CHANGEME
+  volumes:
+    - mysql_data:/var/lib/mysql
+  healthcheck:
+    test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+    interval: 10s
+    timeout: 5s
+    retries: 5
