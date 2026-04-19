@@ -1,0 +1,9 @@
+gitlab-runner:
+  build: .
+  container_name: gitlab-runner
+  restart: unless-stopped
+  volumes:
+    - gitlab_runner_config:/etc/gitlab-runner
+    - /var/run/docker.sock:/var/run/docker.sock
+  depends_on:
+    - gitlab

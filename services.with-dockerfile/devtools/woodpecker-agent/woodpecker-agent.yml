@@ -1,0 +1,13 @@
+woodpecker-agent:
+  build: .
+  container_name: woodpecker-agent
+  restart: unless-stopped
+  environment:
+    - WOODPECKER_SERVER=woodpecker-server:9000
+    - WOODPECKER_AGENT_SECRET=CHANGEME
+    - WOODPECKER_MAX_WORKFLOWS=4
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - woodpecker_agent_data:/etc/woodpecker
+  depends_on:
+    - woodpecker-server

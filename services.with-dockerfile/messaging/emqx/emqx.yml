@@ -1,0 +1,21 @@
+emqx:
+  build: .
+  container_name: emqx
+  restart: unless-stopped
+  ports:
+    - "1883:1883"
+    - "8083:8083"
+    - "8084:8084"
+    - "8883:8883"
+    - "18083:18083"
+  environment:
+    - EMQX_NAME=emqx
+    - EMQX_HOST=node1.emqx.local
+  volumes:
+    - emqx_data:/opt/emqx/data
+    - emqx_log:/opt/emqx/log
+  healthcheck:
+    test: ["CMD", "/opt/emqx/bin/emqx", "ctl", "status"]
+    interval: 15s
+    timeout: 10s
+    retries: 5

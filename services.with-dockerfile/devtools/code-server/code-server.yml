@@ -1,0 +1,12 @@
+code-server:
+  build: .
+  container_name: code-server
+  restart: unless-stopped
+  ports:
+    - "8443:8443"
+  environment:
+    - PASSWORD=CHANGEME
+    - SUDO_PASSWORD=CHANGEME
+  volumes:
+    - code_server_data:/home/coder
+    - ./workspace:/home/coder/project

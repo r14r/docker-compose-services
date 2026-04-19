@@ -1,0 +1,17 @@
+mongodb:
+  build: .
+  container_name: mongodb
+  restart: unless-stopped
+  ports:
+    - "27017:27017"
+  environment:
+    - MONGO_INITDB_ROOT_USERNAME=mongoadmin
+    - MONGO_INITDB_ROOT_PASSWORD=CHANGEME
+    - MONGO_INITDB_DATABASE=app
+  volumes:
+    - mongodb_data:/data/db
+  healthcheck:
+    test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+    interval: 10s
+    timeout: 5s
+    retries: 5

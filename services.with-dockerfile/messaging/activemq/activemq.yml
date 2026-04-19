@@ -1,0 +1,17 @@
+activemq:
+  build: .
+  container_name: activemq
+  restart: unless-stopped
+  ports:
+    - "61616:61616"
+    - "8161:8161"
+  environment:
+    - ARTEMIS_USER=admin
+    - ARTEMIS_PASSWORD=CHANGEME
+  volumes:
+    - activemq_data:/var/lib/artemis-instance
+  healthcheck:
+    test: ["CMD", "curl", "-f", "http://localhost:8161/console"]
+    interval: 15s
+    timeout: 10s
+    retries: 5

@@ -1,0 +1,18 @@
+kibana:
+  build: .
+  container_name: kibana
+  restart: unless-stopped
+  ports:
+    - "5601:5601"
+  environment:
+    - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    - KIBANA_SYSTEM_PASSWORD=CHANGEME
+  volumes:
+    - kibana_data:/usr/share/kibana/data
+  healthcheck:
+    test: ["CMD-SHELL", "curl -s http://localhost:5601/api/status | grep -q '\"overall\":{\"level\":\"available\"'"]
+    interval: 30s
+    timeout: 10s
+    retries: 5
+  depends_on:
+    - elasticsearch

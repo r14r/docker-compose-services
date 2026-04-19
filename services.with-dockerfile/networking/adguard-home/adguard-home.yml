@@ -1,0 +1,18 @@
+adguard-home:
+  build: .
+  container_name: adguard-home
+  restart: unless-stopped
+  ports:
+    - "53:53/tcp"
+    - "53:53/udp"
+    - "67:67/udp"
+    - "68:68/tcp"
+    - "68:68/udp"
+    - "80:80/tcp"
+    - "443:443/tcp"
+    - "3000:3000/tcp"
+  volumes:
+    - adguard_work:/opt/adguardhome/work
+    - adguard_conf:/opt/adguardhome/conf
+  cap_add:
+    - NET_ADMIN

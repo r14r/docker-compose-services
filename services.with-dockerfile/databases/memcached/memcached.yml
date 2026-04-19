@@ -1,0 +1,7 @@
+memcached:
+  build: .
+  container_name: memcached
+  restart: unless-stopped
+  ports:
+    - "11211:11211"
+  command: memcached -m 256

@@ -1,0 +1,1 @@
+FROM authelia/authelia:latest

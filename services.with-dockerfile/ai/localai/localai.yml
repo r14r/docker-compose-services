@@ -1,0 +1,11 @@
+localai:
+  build: .
+  container_name: localai
+  restart: unless-stopped
+  ports:
+    - "8082:8080"  # adjust host port to avoid conflicts with other services
+  volumes:
+    - localai_models:/models
+  environment:
+    - THREADS=4
+    - CONTEXT_SIZE=512
