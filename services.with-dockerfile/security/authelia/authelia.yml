@@ -1,0 +1,13 @@
+authelia:
+  build: .
+  container_name: authelia
+  restart: unless-stopped
+  ports:
+    - "9091:9091"
+  environment:
+    - TZ=UTC
+  volumes:
+    - ./authelia/configuration.yml:/config/configuration.yml:ro
+    - authelia_data:/config
+  depends_on:
+    - redis

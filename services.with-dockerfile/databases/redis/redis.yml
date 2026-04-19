@@ -1,0 +1,14 @@
+redis:
+  build: .
+  container_name: redis
+  restart: unless-stopped
+  ports:
+    - "6379:6379"
+  command: redis-server --requirepass CHANGEME
+  volumes:
+    - redis_data:/data
+  healthcheck:
+    test: ["CMD", "redis-cli", "-a", "CHANGEME", "ping"]
+    interval: 10s
+    timeout: 5s
+    retries: 5

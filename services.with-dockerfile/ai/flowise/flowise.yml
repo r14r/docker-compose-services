@@ -1,0 +1,20 @@
+flowise:
+  build: .
+  container_name: flowise
+  restart: unless-stopped
+  ports:
+    - "3000:3000"
+  environment:
+    - PORT=3000
+    - FLOWISE_USERNAME=admin
+    - FLOWISE_PASSWORD=CHANGEME
+    - DATABASE_TYPE=postgres
+    - DATABASE_HOST=postgresql
+    - DATABASE_PORT=5432
+    - DATABASE_NAME=flowise
+    - DATABASE_USER=flowise
+    - DATABASE_PASSWORD=CHANGEME
+  volumes:
+    - flowise_data:/root/.flowise
+  depends_on:
+    - postgresql

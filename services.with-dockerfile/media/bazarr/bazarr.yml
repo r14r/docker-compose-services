@@ -1,0 +1,14 @@
+bazarr:
+  build: .
+  container_name: bazarr
+  restart: unless-stopped
+  ports:
+    - "6767:6767"
+  environment:
+    - PUID=1000
+    - PGID=1000
+    - TZ=UTC
+  volumes:
+    - bazarr_config:/config
+    - ./media/movies:/movies
+    - ./media/tv:/tv

@@ -1,0 +1,11 @@
+promtail:
+  build: .
+  container_name: promtail
+  restart: unless-stopped
+  command: -config.file=/etc/promtail/config.yml
+  volumes:
+    - ./promtail/promtail-config.yaml:/etc/promtail/config.yml:ro
+    - /var/log:/var/log:ro
+    - /var/lib/docker/containers:/var/lib/docker/containers:ro
+  depends_on:
+    - loki

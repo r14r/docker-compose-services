@@ -1,0 +1,14 @@
+uptime-kuma:
+  build: .
+  container_name: uptime-kuma
+  restart: unless-stopped
+  ports:
+    - "3001:3001"
+  volumes:
+    - uptime_kuma_data:/app/data
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+  healthcheck:
+    test: ["CMD-SHELL", "extra_hosts.sh http://localhost:3001/api/entry-page || exit 1"]
+    interval: 30s
+    timeout: 10s
+    retries: 5

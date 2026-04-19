@@ -1,0 +1,11 @@
+filebrowser:
+  build: .
+  container_name: filebrowser
+  restart: unless-stopped
+  ports:
+    - "8080:80"
+  environment:
+    - FB_BASEURL=/
+  volumes:
+    - ./filebrowser/filebrowser.db:/database/filebrowser.db
+    - ./data:/srv

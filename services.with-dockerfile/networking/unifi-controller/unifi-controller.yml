@@ -1,0 +1,28 @@
+unifi-controller:
+  build: .
+  container_name: unifi-controller
+  restart: unless-stopped
+  ports:
+    - "8443:8443"
+    - "3478:3478/udp"
+    - "10001:10001/udp"
+    - "8080:8080"
+    - "1900:1900/udp"
+    - "8843:8843"
+    - "8880:8880"
+    - "6789:6789"
+    - "5514:5514/udp"
+  environment:
+    - PUID=1000
+    - PGID=1000
+    - TZ=UTC
+    - MONGO_USER=unifi
+    - MONGO_PASS=CHANGEME
+    - MONGO_HOST=mongodb
+    - MONGO_PORT=27017
+    - MONGO_DBNAME=unifi
+    - MONGO_AUTHSOURCE=admin
+  volumes:
+    - unifi_data:/config
+  depends_on:
+    - mongodb

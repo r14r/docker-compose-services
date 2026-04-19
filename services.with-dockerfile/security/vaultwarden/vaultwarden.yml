@@ -1,0 +1,16 @@
+vaultwarden:
+  build: .
+  container_name: vaultwarden
+  restart: unless-stopped
+  ports:
+    - "8080:80"
+  environment:
+    - ADMIN_TOKEN=CHANGEME
+    - DOMAIN=https://bitwarden.example.com
+    - SIGNUPS_ALLOWED=false
+    - INVITATIONS_ALLOWED=true
+    - DATABASE_URL=postgresql://vaultwarden:CHANGEME@postgresql:5432/vaultwarden
+  volumes:
+    - vaultwarden_data:/data
+  depends_on:
+    - postgresql

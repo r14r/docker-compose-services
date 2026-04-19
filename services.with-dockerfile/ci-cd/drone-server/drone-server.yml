@@ -1,0 +1,21 @@
+drone-server:
+  build: .
+  container_name: drone-server
+  restart: unless-stopped
+  ports:
+    - "80:80"
+    - "443:443"
+  environment:
+    - DRONE_GITEA_SERVER=http://gitea:3000
+    - DRONE_GITEA_CLIENT_ID=CHANGEME
+    - DRONE_GITEA_CLIENT_SECRET=CHANGEME
+    - DRONE_RPC_SECRET=CHANGEME
+    - DRONE_SERVER_HOST=drone.example.com
+    - DRONE_SERVER_PROTO=http
+    - DRONE_DATABASE_DRIVER=postgres
+    - DRONE_DATABASE_DATASOURCE=postgres://drone:CHANGEME@postgresql:5432/drone?sslmode=disable
+  volumes:
+    - drone_data:/data
+  depends_on:
+    - gitea
+    - postgresql

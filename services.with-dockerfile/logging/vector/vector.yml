@@ -1,0 +1,12 @@
+vector:
+  build: .
+  container_name: vector
+  restart: unless-stopped
+  ports:
+    - "8686:8686"
+  volumes:
+    - ./vector/vector.yaml:/etc/vector/vector.yaml:ro
+    - /var/log:/var/log:ro
+    - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+    - vector_data:/var/lib/vector

@@ -1,0 +1,13 @@
+crowdsec:
+  build: .
+  container_name: crowdsec
+  restart: unless-stopped
+  ports:
+    - "8080:8080"
+  environment:
+    - GID=1000
+    - COLLECTIONS=crowdsecurity/linux crowdsecurity/nginx
+  volumes:
+    - /var/log:/var/log:ro
+    - crowdsec_data:/var/lib/crowdsec/data
+    - crowdsec_config:/etc/crowdsec

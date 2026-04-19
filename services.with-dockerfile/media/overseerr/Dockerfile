@@ -1,0 +1,1 @@
+FROM sctx/overseerr:latest

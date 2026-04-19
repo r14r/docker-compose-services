@@ -1,0 +1,20 @@
+concourse-web:
+  build: .
+  container_name: concourse-web
+  restart: unless-stopped
+  command: web
+  ports:
+    - "8080:8080"
+  environment:
+    - CONCOURSE_POSTGRES_HOST=postgresql
+    - CONCOURSE_POSTGRES_USER=concourse
+    - CONCOURSE_POSTGRES_PASSWORD=CHANGEME
+    - CONCOURSE_POSTGRES_DATABASE=concourse
+    - CONCOURSE_EXTERNAL_URL=http://localhost:8080
+    - CONCOURSE_ADD_LOCAL_USER=admin:CHANGEME
+    - CONCOURSE_MAIN_TEAM_LOCAL_USER=admin
+    - CONCOURSE_WORKER_BAGGAGECLAIM_DRIVER=overlay
+  volumes:
+    - concourse_keys:/concourse-keys
+  depends_on:
+    - postgresql
