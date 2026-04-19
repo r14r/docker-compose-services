@@ -1,0 +1,20 @@
+authentik-worker:
+  image: ghcr.io/goauthentik/server:latest
+  container_name: authentik-worker
+  restart: unless-stopped
+  command: worker
+  environment:
+    - AUTHENTIK_REDIS__HOST=redis
+    - AUTHENTIK_POSTGRESQL__HOST=postgresql
+    - AUTHENTIK_POSTGRESQL__USER=authentik
+    - AUTHENTIK_POSTGRESQL__PASSWORD=CHANGEME
+    - AUTHENTIK_POSTGRESQL__NAME=authentik
+    - AUTHENTIK_SECRET_KEY=CHANGEME
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - authentik_media:/media
+    - authentik_certs:/certs
+    - authentik_templates:/templates
+  depends_on:
+    - postgresql
+    - redis

@@ -1,0 +1,15 @@
+anythingllm:
+  image: mintplexlabs/anythingllm:latest
+  container_name: anythingllm
+  restart: unless-stopped
+  ports:
+    - "3001:3001"
+  environment:
+    - STORAGE_DIR=/app/server/storage
+    - JWT_SECRET=CHANGEME
+    - SIG_KEY=CHANGEME
+    - SIG_SALT=CHANGEME
+  volumes:
+    - anythingllm_storage:/app/server/storage
+    - anythingllm_hotdir:/app/collector/hotdir
+    - anythingllm_outputs:/app/collector/outputs

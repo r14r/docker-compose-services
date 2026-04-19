@@ -1,0 +1,21 @@
+pihole:
+  image: pihole/pihole:latest
+  container_name: pihole
+  restart: unless-stopped
+  ports:
+    - "53:53/tcp"
+    - "53:53/udp"
+    - "80:80/tcp"
+  environment:
+    - TZ=UTC
+    - WEBPASSWORD=CHANGEME
+    - PIHOLE_DNS_=8.8.8.8;8.8.4.4
+    - DNSMASQ_LISTENING=all
+  volumes:
+    - pihole_etc:/etc/pihole
+    - pihole_dnsmasq:/etc/dnsmasq.d
+  cap_add:
+    - NET_ADMIN
+  dns:
+    - 127.0.0.1
+    - 9.9.9.9

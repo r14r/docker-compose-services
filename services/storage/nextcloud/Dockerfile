@@ -1,1 +1,0 @@
-FROM nextcloud:28-apache

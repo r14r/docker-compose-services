@@ -1,0 +1,16 @@
+gitlab:
+  image: gitlab/gitlab-ce:latest
+  container_name: gitlab
+  restart: unless-stopped
+  hostname: gitlab.example.com
+  ports:
+    - "443:443"
+    - "80:80"
+    - "22:22"
+  environment:
+    - GITLAB_OMNIBUS_CONFIG=external_url 'http://localhost'; gitlab_rails['lfs_enabled'] = true;
+  volumes:
+    - gitlab_config:/etc/gitlab
+    - gitlab_logs:/var/log/gitlab
+    - gitlab_data:/var/opt/gitlab
+  shm_size: "256m"
