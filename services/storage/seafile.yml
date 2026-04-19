@@ -1,0 +1,17 @@
+seafile:
+  image: seafileltd/seafile-mc:latest
+  container_name: seafile
+  restart: unless-stopped
+  ports:
+    - "80:80"
+  environment:
+    - DB_HOST=mariadb
+    - DB_ROOT_PASSWD=CHANGEME
+    - SEAFILE_ADMIN_EMAIL=admin@example.com
+    - SEAFILE_ADMIN_PASSWORD=CHANGEME
+    - SEAFILE_SERVER_HOSTNAME=localhost
+  volumes:
+    - seafile_data:/shared
+  depends_on:
+    - mariadb
+    - memcached

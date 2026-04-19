@@ -1,0 +1,14 @@
+litellm:
+  image: ghcr.io/berriai/litellm:main-latest
+  container_name: litellm
+  restart: unless-stopped
+  ports:
+    - "4000:4000"
+  environment:
+    - LITELLM_MASTER_KEY=CHANGEME
+    - DATABASE_URL=postgresql://litellm:CHANGEME@postgresql:5432/litellm
+  volumes:
+    - ./litellm/config.yaml:/app/config.yaml:ro
+  command: ["--config", "/app/config.yaml", "--port", "4000"]
+  depends_on:
+    - postgresql

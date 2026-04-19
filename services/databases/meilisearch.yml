@@ -1,0 +1,16 @@
+meilisearch:
+  image: getmeili/meilisearch:latest
+  container_name: meilisearch
+  restart: unless-stopped
+  ports:
+    - "7700:7700"
+  environment:
+    - MEILI_MASTER_KEY=CHANGEME
+    - MEILI_ENV=production
+  volumes:
+    - meilisearch_data:/meili_data
+  healthcheck:
+    test: ["CMD", "curl", "-f", "http://localhost:7700/health"]
+    interval: 10s
+    timeout: 5s
+    retries: 5

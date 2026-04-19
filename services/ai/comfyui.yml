@@ -1,0 +1,17 @@
+comfyui:
+  image: yanwk/comfyui-boot:latest
+  container_name: comfyui
+  restart: unless-stopped
+  ports:
+    - "8188:8188"
+  volumes:
+    - comfyui_models:/root/ComfyUI/models
+    - comfyui_output:/root/ComfyUI/output
+    - comfyui_custom_nodes:/root/ComfyUI/custom_nodes
+  deploy:
+    resources:
+      reservations:
+        devices:
+          - driver: nvidia
+            count: all
+            capabilities: [gpu]

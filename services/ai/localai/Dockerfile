@@ -1,1 +1,0 @@
-FROM localai/localai:latest

@@ -1,0 +1,21 @@
+authentik-server:
+  image: ghcr.io/goauthentik/server:latest
+  container_name: authentik-server
+  restart: unless-stopped
+  command: server
+  ports:
+    - "9000:9000"
+    - "9443:9443"
+  environment:
+    - AUTHENTIK_REDIS__HOST=redis
+    - AUTHENTIK_POSTGRESQL__HOST=postgresql
+    - AUTHENTIK_POSTGRESQL__USER=authentik
+    - AUTHENTIK_POSTGRESQL__PASSWORD=CHANGEME
+    - AUTHENTIK_POSTGRESQL__NAME=authentik
+    - AUTHENTIK_SECRET_KEY=CHANGEME
+  volumes:
+    - authentik_media:/media
+    - authentik_templates:/templates
+  depends_on:
+    - postgresql
+    - redis

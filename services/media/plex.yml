@@ -1,0 +1,14 @@
+plex:
+  image: plexinc/pms-docker:latest
+  container_name: plex
+  restart: unless-stopped
+  network_mode: host
+  environment:
+    - TZ=UTC
+    - PLEX_CLAIM=CHANGEME
+    - PLEX_UID=1000
+    - PLEX_GID=1000
+  volumes:
+    - plex_config:/config
+    - plex_transcode:/transcode
+    - ./media:/data:ro
